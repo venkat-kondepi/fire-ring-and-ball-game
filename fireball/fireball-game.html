@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Ball Game</title>
+    <link rel="stylesheet" href="fireball.css" />
+    <script src="./fireball.js" defer></script>
+  </head>
+  <body>
+    <div id="score">Score: 0</div>
+    <div id="gameContainer">
+      <div id="ball">
+        <img src="../assets/MyBall_no_bg.gif" alt="ball" />
+      </div>
+      <div id="fire">
+        <img src="../assets/fire-17010.gif" alt="fire ring" />
+      </div>
+      <div id="gameOver">
+        <h2>Game Over!</h2>
+        <p>Final Score: <span id="finalScore">0</span></p>
+        <button onclick="restartGame()">Restart</button>
+      </div>
+    </div>
+  </body>
+</html>
