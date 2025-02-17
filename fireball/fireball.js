@@ -11,7 +11,7 @@ let score = 0;
 let isGameOver = false;
 let hasPassed = false;
 let verticalVelocity = 0;
-let lives = 3; // Start with 3 lives
+let lives = 3;
 
 const BALL_SPEED = 5;
 const FIRE_SPEED = 3;
@@ -30,16 +30,13 @@ function updateGame() {
   firePosition -= FIRE_SPEED;
   if (firePosition < -FIRE_SIZE) {
     if (!hasPassed) {
-      // Player missed the fire ring
       lives--;
       livesElement.textContent = `Lives: ${lives}`;
-
       if (lives === 0) {
         endGame();
         return;
       }
     }
-
     firePosition = 800;
     hasPassed = false;
   }
@@ -81,7 +78,7 @@ function endGame() {
 
 function restartGame() {
   score = 0;
-  lives = 3; // Reset lives
+  lives = 3;
   isGameOver = false;
   hasPassed = false;
   ballPosition = 0;
@@ -95,10 +92,20 @@ function restartGame() {
   updateGame();
 }
 
+// Keyboard and Touch Support
 document.addEventListener("keydown", (e) => {
   if (e.key === "ArrowUp") {
     verticalVelocity = JUMP_FORCE;
   }
+});
+
+document.addEventListener("touchstart", () => {
+  verticalVelocity = JUMP_FORCE;
+});
+
+// Mobile Button Support
+document.getElementById("jumpButton").addEventListener("click", () => {
+  verticalVelocity = JUMP_FORCE;
 });
 
 updateGame();
