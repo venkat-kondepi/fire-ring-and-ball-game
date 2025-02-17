@@ -50,6 +50,12 @@ body {
   margin: 20px 0;
 }
 
+#lives {
+  font-size: 24px;
+  margin: 10px 0;
+}
+
+
 #gameOver {
   display: none;
   position: absolute;
@@ -75,4 +81,16 @@ button {
 
 button:hover {
   background: #45a049;
+}
+
+#instructionsLink {
+  color: yellow;
+  font-size: 18px;
+  text-decoration: none;
+  margin: 10px;
+  display: block;
+}
+
+#instructionsLink:hover {
+  text-decoration: underline;
 }
