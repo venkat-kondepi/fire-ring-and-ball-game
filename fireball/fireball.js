@@ -4,6 +4,7 @@ const scoreElement = document.getElementById("score");
 const livesElement = document.getElementById("lives");
 const gameOver = document.getElementById("gameOver");
 const finalScoreElement = document.getElementById("finalScore");
+const jumpButton = document.getElementById("jumpButton");
 
 let ballPosition = 0;
 let firePosition = 800;
@@ -19,6 +20,7 @@ const BALL_SIZE = 30;
 const FIRE_SIZE = 60;
 const GRAVITY = 0.5;
 const JUMP_FORCE = 15;
+const isMobile = /Mobi|Android|iPhone|iPad/i.test(navigator.userAgent);
 
 function updateGame() {
   if (isGameOver) return;
@@ -92,7 +94,6 @@ function restartGame() {
   updateGame();
 }
 
-// Keyboard and Touch Support
 document.addEventListener("keydown", (e) => {
   if (e.key === "ArrowUp") {
     verticalVelocity = JUMP_FORCE;
@@ -100,12 +101,19 @@ document.addEventListener("keydown", (e) => {
 });
 
 document.addEventListener("touchstart", () => {
-  verticalVelocity = JUMP_FORCE;
+  if (isMobile && ballPosition < 50) {
+    // Restrict jump height only on mobile
+    verticalVelocity = JUMP_FORCE;
+  }
 });
 
-// Mobile Button Support
-document.getElementById("jumpButton").addEventListener("click", () => {
-  verticalVelocity = JUMP_FORCE;
+jumpButton.addEventListener("click", () => {
+  if (isMobile) {
+    if (ballPosition < 50) {
+      // Restrict jump on mobile
+      verticalVelocity = JUMP_FORCE;
+    }
+  } else {
+    verticalVelocity = JUMP_FORCE; // Normal jump for desktop
+  }
 });
-
-updateGame();
