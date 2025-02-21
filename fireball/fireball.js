@@ -1,10 +1,9 @@
-const ball = document.getElementById("ball");
-const fire = document.getElementById("fire");
-const scoreElement = document.getElementById("score");
-const livesElement = document.getElementById("lives");
-const gameOver = document.getElementById("gameOver");
-const finalScoreElement = document.getElementById("finalScore");
-const jumpButton = document.getElementById("jumpButton");
+let ball = document.getElementById("ball");
+let fire = document.getElementById("fire");
+let scoreElement = document.getElementById("score");
+let livesElement = document.getElementById("lives");
+let gameOver = document.getElementById("gameOver");
+let finalScoreElement = document.getElementById("finalScore");
 
 let ballPosition = 0;
 let firePosition = 800;
@@ -13,14 +12,9 @@ let isGameOver = false;
 let hasPassed = false;
 let verticalVelocity = 0;
 let lives = 3;
-
-const BALL_SPEED = 5;
-const FIRE_SPEED = 3;
-const BALL_SIZE = 30;
-const FIRE_SIZE = 60;
 const GRAVITY = 0.5;
 const JUMP_FORCE = 15;
-const isMobile = /Mobi|Android|iPhone|iPad/i.test(navigator.userAgent);
+const FIRE_SPEED = 3;
 
 function updateGame() {
   if (isGameOver) return;
@@ -30,7 +24,7 @@ function updateGame() {
   ball.style.bottom = ballPosition + "px";
 
   firePosition -= FIRE_SPEED;
-  if (firePosition < -FIRE_SIZE) {
+  if (firePosition < -60) {
     if (!hasPassed) {
       lives--;
       livesElement.textContent = `Lives: ${lives}`;
@@ -44,32 +38,27 @@ function updateGame() {
   }
   fire.style.right = 800 - firePosition + "px";
 
-  const ballRect = ball.getBoundingClientRect();
-  const fireRect = fire.getBoundingClientRect();
+  checkCollision();
 
-  const ballCenter = {
-    x: ballRect.left + ballRect.width / 2,
-    y: ballRect.top + ballRect.height / 2,
-  };
-  const fireCenter = {
-    x: fireRect.left + fireRect.width / 2,
-    y: fireRect.top + fireRect.height / 2,
-  };
+  requestAnimationFrame(updateGame);
+}
 
-  const distance = Math.sqrt(
-    Math.pow(ballCenter.x - fireCenter.x, 2) +
-      Math.pow(ballCenter.y - fireCenter.y, 2)
-  );
+function checkCollision() {
+  let ballRect = ball.getBoundingClientRect();
+  let fireRect = fire.getBoundingClientRect();
 
-  if (distance < FIRE_SIZE / 2) {
+  if (
+    ballRect.left < fireRect.right &&
+    ballRect.right > fireRect.left &&
+    ballRect.top < fireRect.bottom &&
+    ballRect.bottom > fireRect.top
+  ) {
     if (!hasPassed) {
       score++;
       scoreElement.textContent = `Score: ${score}`;
       hasPassed = true;
     }
   }
-
-  requestAnimationFrame(updateGame);
 }
 
 function endGame() {
@@ -94,26 +83,29 @@ function restartGame() {
   updateGame();
 }
 
+document.getElementById("instructionsButton").addEventListener("click", () => {
+  document.getElementById("welcomeContainer").style.display = "none";
+  document.getElementById("instructionsContainer").style.display = "block";
+});
+
+document.getElementById("backButton").addEventListener("click", () => {
+  document.getElementById("instructionsContainer").style.display = "none";
+  document.getElementById("welcomeContainer").style.display = "block";
+});
+
+document.getElementById("startGameButton").addEventListener("click", () => {
+  document.getElementById("welcomeContainer").style.display = "none";
+  document.getElementById("gameContainer").style.display = "block";
+  document.getElementById("jumpButton").style.display = "block";
+  updateGame();
+});
+
+document.getElementById("jumpButton").addEventListener("click", () => {
+  verticalVelocity = JUMP_FORCE;
+});
+
 document.addEventListener("keydown", (e) => {
   if (e.key === "ArrowUp") {
     verticalVelocity = JUMP_FORCE;
-  }
-});
-
-document.addEventListener("touchstart", () => {
-  if (isMobile && ballPosition < 50) {
-    // Restrict jump height only on mobile
-    verticalVelocity = JUMP_FORCE;
-  }
-});
-
-jumpButton.addEventListener("click", () => {
-  if (isMobile) {
-    if (ballPosition < 50) {
-      // Restrict jump on mobile
-      verticalVelocity = JUMP_FORCE;
-    }
-  } else {
-    verticalVelocity = JUMP_FORCE; // Normal jump for desktop
   }
 });

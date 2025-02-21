@@ -5,14 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Ball Game</title>
     <link rel="stylesheet" href="fireball.css" />
-    <script src="./fireball.js" defer></script>
+    <script src="fireball.js" defer></script>
   </head>
   <body>
-    <div id="instructionsContainer">
+    <div id="welcomeContainer">
+      <h1>Welcome to the Ball Game!</h1>
+      <button id="instructionsButton">Instructions</button>
+      <button id="startGameButton">Start Game</button>
+    </div>
+
+    <div id="instructionsContainer" style="display: none">
       <h1>Game Instructions</h1>
-      <p>Welcome to the Ball Game! Follow these instructions:</p>
       <ul>
-        <li>Press the <b>Arrow Up</b> key to make the ball jump.</li>
+        <li>
+          Press the <b>Arrow Up</b> key or <b>Jump</b> button to make the ball
+          jump.
+        </li>
         <li>Pass through the fire ring to score points.</li>
         <li>Avoid missing the fire ring, or you will lose a life.</li>
         <li>
@@ -20,21 +28,18 @@
           will end.
         </li>
         <li>Your score increases each time you pass through the ring.</li>
-        <li>Press the <b>Restart</b> button to play again.</li>
       </ul>
-      <button id="startButton">Start Game</button>
+      <button id="backButton">Back</button>
     </div>
 
     <div id="gameContainer" style="display: none">
-      <div id="ball">
-        <img src="../assets/MyBall_no_bg.gif" alt="ball" />
-      </div>
+      <div id="ball"><img src="../assets/MyBall_no_bg.gif" alt="ball" /></div>
       <div id="fire">
         <img src="../assets/fire-17010.gif" alt="fire ring" />
       </div>
       <div id="score">Score: 0</div>
       <div id="lives">Lives: 3</div>
-      <div id="gameOver">
+      <div id="gameOver" style="display: none">
         <h2>Game Over!</h2>
         <p>Final Score: <span id="finalScore">0</span></p>
         <button onclick="restartGame()">Restart</button>
@@ -42,16 +47,5 @@
     </div>
 
     <button id="jumpButton" style="display: none">Jump</button>
-
-    <script>
-      document.getElementById("startButton").addEventListener("click", () => {
-        console.log("start buttton clicked");
-
-        document.getElementById("instructionsContainer").style.display = "none";
-        document.getElementById("gameContainer").style.display = "block";
-        document.getElementById("jumpButton").style.display = "block"; // Show jump button
-        updateGame();
-      });
-    </script>
   </body>
 </html>

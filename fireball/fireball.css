@@ -1,40 +1,59 @@
-body {
+
+      body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        overflow: hidden;
+        background: black;
+        color: white;
+      }
+
+      #gameContainer {
+        width: 100vw;
+        max-width: 800px;
+        height: 50vh;
+        max-height: 400px;
+        border-bottom: 2px solid white;
+        position: relative;
+        overflow: hidden;
+        background: url("../assets/02-34-11-741_512.gif");
+      }
+
+      /* #ball, #fire {
+        position: absolute;
+      } */
+
+      /* #ball img, #fire img {
+        width: 100%;
+        height: auto;
+      } */
+
+      #jumpButton {
+        position: relative;
+        margin-top: 10px;
+        padding: 10px 20px;
+        font-size: 18px;
+      }
+
+/* body {
   display: flex;
   flex-direction: column;
   align-items: center;
   background: #000;
   color: white;
   font-family: Arial, sans-serif;
-  overflow: hidden;
-}
+} */
 
-#instructionsContainer {
-  margin-top: 100px;
-}
-
-#startButton {
-  padding: 15px 25px;
-  font-size: 20px;
-  background: #4caf50;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  margin-top: 20px;
-}
-
-#startButton:hover {
-  background: #45a049;
-}
-
-#gameContainer {
+/* #gameContainer {
   width: 800px;
   height: 400px;
   border: 2px solid #fff;
   position: relative;
   overflow: hidden;
   background: url("../assets/02-34-11-741_512.gif");
-}
+} */
 
 #ball {
   width: 30px;
@@ -65,10 +84,16 @@ body {
   transform: rotate(90deg);
 }
 
-#score, #lives {
+#score {
+  font-size: 24px;
+  margin: 20px 0;
+}
+
+#lives {
   font-size: 24px;
   margin: 10px 0;
 }
+
 
 #gameOver {
   display: none;
@@ -109,46 +134,3 @@ button:hover {
   text-decoration: underline;
 }
 
-#jumpButton {
-  position: absolute;
-  bottom: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  padding: 15px 25px;
-  font-size: 20px;
-  background: #ff5722;
-  color: white;
-  border: none;
-  border-radius: 10px;
-  cursor: pointer;
-}
-
-#jumpButton:hover {
-  background: #e64a19;
-}
-
-@media (max-width: 600px) {
-  #gameContainer {
-      width: 100%;
-      height: 300px;
-  }
-
-  #ball {
-      width: 20px;
-      height: 20px;
-  }
-
-  #fire {
-      width: 40px;
-      height: 80px;
-  }
-
-  #score, #lives {
-      font-size: 18px;
-  }
-
-  button {
-      font-size: 16px;
-      padding: 8px 16px;
-  }
-}
